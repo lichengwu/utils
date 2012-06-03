@@ -108,8 +108,8 @@ final public class CalendarUtil {
      * @return
      */
     public static Date getLastDayInWeek(Date date, Week week) {
-    	Assert.notNull(date, "date must be not null");
-        Assert.notNull(week, "week must be not null");
+        Assert.notNull(date, "日期不能为空");
+        Assert.notNull(week, "星期不能为空");
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(date.getTime());
         int day = getWeek(date).getIndex() - week.getIndex();
@@ -138,8 +138,8 @@ final public class CalendarUtil {
      * @return
      */
     public static Date getNextDayInWeek(Date date, Week week) {
-        Assert.notNull(date, "date must be not null");
-        Assert.notNull(week, "week must be not null");
+        Assert.notNull(date, "日期不能为空");
+        Assert.notNull(week, "星期不能为空");
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(date.getTime());
         int day = week.getIndex() - getWeek(date).getIndex();
@@ -164,14 +164,64 @@ final public class CalendarUtil {
      * @return
      */
     public static Date getDateInThisWeek(Date date, Week week) {
-    	Assert.notNull(date, "date must be not null");
-        Assert.notNull(week, "week must be not null");
+        Assert.notNull(date, "日期不能为空");
+        Assert.notNull(week, "星期不能为空");
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(date.getTime());
         int index = getWeek(date).getIndex();
         int day = (week.getIndex() == 0 ? 7 : week.getIndex()) - (index == 0 ? 7 : index);
         cal.add(Calendar.DAY_OF_MONTH, day);
         return cal.getTime();
+    }
+
+    public static void main(String[] args) {
+        // System.out.println(getDaysOfMonth(new Date()));
+        // Calendar cal = Calendar.getInstance();
+        // cal.setTime(new Date());
+        // System.out.println(cal.get(Calendar.DAY_OF_WEEK)-1);
+        // System.out.println(getWeek(2011, 12, 30).getName());
+        // System.out.println(DateUtil.Date2String(getLastDayInWeek(
+        // DateUtil.stirng2Date("2011-12-03", DateUtil.DefaultShortFormat),
+        // Week.MONDAY)));
+        // System.out.println(DateUtil.Date2String(getLastDayInWeek(
+        // DateUtil.stirng2Date("2011-12-03", DateUtil.DefaultShortFormat),
+        // Week.TUESDAY)));
+        // System.out.println(DateUtil.Date2String(getLastDayInWeek(
+        // DateUtil.stirng2Date("2011-12-03", DateUtil.DefaultShortFormat),
+        // Week.WEDNESDAY)));
+        // System.out.println(DateUtil.Date2String(getLastDayInWeek(
+        // DateUtil.stirng2Date("2011-12-03", DateUtil.DefaultShortFormat),
+        // Week.THURSDAY)));
+        // System.out.println(DateUtil.Date2String(getLastDayInWeek(
+        // DateUtil.stirng2Date("2011-12-03", DateUtil.DefaultShortFormat),
+        // Week.FRIDAY)));
+        // System.out.println(DateUtil.Date2String(getLastDayInWeek(
+        // DateUtil.stirng2Date("2011-12-03", DateUtil.DefaultShortFormat),
+        // Week.SATURDAY)));
+        // System.out.println(DateUtil.Date2String(getLastDayInWeek(
+        // DateUtil.stirng2Date("2011-12-03", DateUtil.DefaultShortFormat),
+        // Week.SUNDAY)));
+		// System.out.println(DateUtil.Date2String(getNextDayInWeek(
+		// DateUtil.stirng2Date("2012-02-28", DateUtil.DefaultShortFormat),
+		// Week.MONDAY)));
+		// System.out.println(DateUtil.Date2String(getNextDayInWeek(
+		// DateUtil.stirng2Date("2012-02-28", DateUtil.DefaultShortFormat),
+		// Week.TUESDAY)));
+		// System.out.println(DateUtil.Date2String(getNextDayInWeek(
+		// DateUtil.stirng2Date("2012-02-28", DateUtil.DefaultShortFormat),
+		// Week.WEDNESDAY)));
+		// System.out.println(DateUtil.Date2String(getNextDayInWeek(
+		// DateUtil.stirng2Date("2012-02-28", DateUtil.DefaultShortFormat),
+		// Week.THURSDAY)));
+		// System.out.println(DateUtil.Date2String(getNextDayInWeek(
+		// DateUtil.stirng2Date("2012-02-28", DateUtil.DefaultShortFormat),
+		// Week.FRIDAY)));
+		// System.out.println(DateUtil.Date2String(getNextDayInWeek(
+		// DateUtil.stirng2Date("2012-02-28", DateUtil.DefaultShortFormat),
+		// Week.SATURDAY)));
+		// System.out.println(DateUtil.Date2String(getNextDayInWeek(
+		// DateUtil.stirng2Date("2012-02-28", DateUtil.DefaultShortFormat),
+		// Week.SUNDAY)));
     }
 
     /**
