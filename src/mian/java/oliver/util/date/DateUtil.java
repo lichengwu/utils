@@ -2,6 +2,7 @@ package oliver.util.date;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import oliver.util.math.Random;
@@ -24,6 +25,8 @@ import oliver.util.math.Random;
  */
 public final class DateUtil
 {
+	
+	public static final String DefaultLongFormat="yyyy-MM-d hh:mm:ss";
 	/**
 	 * <b>构造方法。</b>  
 	 * <p><b>详细说明：</b></p>
@@ -120,4 +123,57 @@ public final class DateUtil
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		return sdf.format(date);
 	}
+	
+	/**
+	 * parse string to {@link Date}
+	 * 
+	 * @author lichengwu
+	 * @created 2012-6-9
+	 *
+	 * @param dateString 
+	 * @param format
+	 * @return {@link Date}
+	 */
+	public static Date string2Date(String dateString,String format) {
+        SimpleDateFormat formatter = new SimpleDateFormat(format);
+        dateString = dateString.trim();
+            try {
+	            return formatter.parse(dateString);
+            } catch (ParseException e) {
+	            throw new RuntimeException(e);
+            }
+    }
+	
+	   /**
+     * 将时间转换成昨天
+     * 
+     * @author lichengwu
+     * @created 2011-11-1
+     * 
+     * @param date
+     * @return
+     */
+    public static Date toYesterday(Date date) {
+        return add(date, Calendar.DAY_OF_YEAR, -1);
+    }
+
+    /**
+     * 将时间转换成明天
+     * 
+     * @author lichengwu
+     * @created 2011-11-1
+     * 
+     * @param date
+     * @return
+     */
+    public static Date toTommorow(Date date) {
+        return add(date, Calendar.DAY_OF_YEAR, 1);
+    }
+	
+	private static Date add(Date date, int field, int value) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(date.getTime());
+        cal.add(field, value);
+        return cal.getTime();
+    }
 }
