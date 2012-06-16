@@ -3,7 +3,7 @@
  * All rights reserved.
  * 
  */
-package oliver.util.observer;
+package oliver.pattern.observer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public abstract class DefaultObservable implements Observable {
 	private List<Observer> observers = new ArrayList<Observer>();
 
 	/**
-	 * @see oliver.util.observer.Observable#notifyObservers()
+	 * @see oliver.pattern.observer.Observable#notifyObservers()
 	 */
 	@Override
 	public void notifyObservers() {
@@ -31,7 +31,7 @@ public abstract class DefaultObservable implements Observable {
 	}
 
 	/**
-	 * @see oliver.util.observer.Observable#notifyObservers(java.lang.Object)
+	 * @see oliver.pattern.observer.Observable#notifyObservers(java.lang.Object)
 	 */
 	@Override
 	public void notifyObservers(Object arg) {
@@ -46,7 +46,7 @@ public abstract class DefaultObservable implements Observable {
 	}
 
 	/**
-	 * @see oliver.util.observer.Observable#addObserver(oliver.util.observer.Observer)
+	 * @see oliver.pattern.observer.Observable#addObserver(oliver.pattern.observer.Observer)
 	 */
 	@Override
 	public void addObserver(Observer observer) {
@@ -62,7 +62,7 @@ public abstract class DefaultObservable implements Observable {
 	}
 
 	/**
-	 * @see oliver.util.observer.Observable#removeObserver(oliver.util.observer.Observer)
+	 * @see oliver.pattern.observer.Observable#removeObserver(oliver.pattern.observer.Observer)
 	 */
 	@Override
 	public void removeObserver(Observer observer) {
@@ -72,7 +72,7 @@ public abstract class DefaultObservable implements Observable {
 	}
 
 	/**
-	 * @see oliver.util.observer.Observable#countObservers()
+	 * @see oliver.pattern.observer.Observable#countObservers()
 	 */
 	@Override
 	public int countObservers() {
@@ -114,7 +114,7 @@ public abstract class DefaultObservable implements Observable {
 	}
 
 	/**
-	 * @see oliver.util.observer.Observable#clearObservers()
+	 * @see oliver.pattern.observer.Observable#clearObservers()
 	 */
 	@Override
 	public void clearObservers() {

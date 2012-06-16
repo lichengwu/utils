@@ -2,7 +2,7 @@ package oliver.util.mail;
 
 import java.util.List;
 
-import oliver.util.string.StringUtil;
+import oliver.lang.StringUtil;
 
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;

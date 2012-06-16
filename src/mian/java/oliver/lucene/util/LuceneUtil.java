@@ -21,7 +21,9 @@ import org.apache.lucene.util.Version;
  * 
  * @version 1.0
  */
-public class LuceneUtil {
+final public class LuceneUtil {
+	
+	private LuceneUtil(){}
     
     /**
      * lucene版本

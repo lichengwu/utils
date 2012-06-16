@@ -1,4 +1,4 @@
-package oliver.util.concurrent;
+package oliver.util.colloection;
 
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicReference;

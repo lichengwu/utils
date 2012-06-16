@@ -3,7 +3,7 @@
  * 
  * 版权所有(c) 2008 。
  */
-package oliver.util.string;
+package oliver.lang;
 
 /**
  * <b>Formatter。</b>

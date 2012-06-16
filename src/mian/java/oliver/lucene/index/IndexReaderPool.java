@@ -15,8 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
 
+import oliver.lang.StringUtil;
 import oliver.lucene.util.LuceneUtil;
-import oliver.util.string.StringUtil;
 
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexReader;

@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import oliver.util.math.Random;
+import oliver.lang.Random;
 
 /**
  * <b>DateUtils。</b>

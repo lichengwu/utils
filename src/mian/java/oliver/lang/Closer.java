@@ -3,7 +3,7 @@
  * All rights reserved.
  * 
  */
-package oliver.util;
+package oliver.lang;
 
 import java.io.BufferedReader;
 import java.io.Closeable;

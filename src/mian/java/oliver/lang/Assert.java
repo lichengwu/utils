@@ -3,12 +3,11 @@
  * All rights reserved.
  * 
  */
-package oliver.util;
+package oliver.lang;
 
 import java.util.Collection;
 import java.util.Map;
 
-import oliver.util.string.StringUtil;
 
 /**
  * 用于断定表达式或对象是否成立，如果不成立，抛出

@@ -5,6 +5,8 @@
  */
 package oliver.util.observer;
 
+import oliver.pattern.observer.DefaultObservable;
+
 /**
  * 内存信息
  * 

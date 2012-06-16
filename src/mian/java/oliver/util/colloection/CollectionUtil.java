@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import oliver.util.Assert;
-import oliver.util.string.StringUtil;
+import oliver.lang.Assert;
+import oliver.lang.StringUtil;
 
 /**
  * 集合工具类
@@ -185,7 +185,7 @@ final public class CollectionUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> generatePropertyList(Collection<?> collection, String property) {
-		assert property != null;
+		Assert.notNull(property);
 		if (collection == null || collection.isEmpty()) {
 			return null;
 		}

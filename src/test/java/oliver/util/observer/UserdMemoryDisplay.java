@@ -5,6 +5,9 @@
  */
 package oliver.util.observer;
 
+import oliver.pattern.observer.Observable;
+import oliver.pattern.observer.Observer;
+
 /**
  *
  * @author lichengwu
@@ -15,7 +18,7 @@ package oliver.util.observer;
 public class UserdMemoryDisplay implements Observer {
 
 	/**
-     * @see oliver.util.observer.Observer#update(oliver.util.observer.Observable, java.lang.Object)
+     * @see oliver.pattern.observer.Observer#update(oliver.pattern.observer.Observable, java.lang.Object)
      */
     @Override
     public void update(Observable observable, Object arg) {

@@ -1,4 +1,4 @@
-package oliver.util.math;
+package oliver.lang;
 
 /**
  * <b>RandomUtils。</b>

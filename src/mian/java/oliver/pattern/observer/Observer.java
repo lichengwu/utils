@@ -3,7 +3,7 @@
  * All rights reserved.
  * 
  */
-package oliver.util.observer;
+package oliver.pattern.observer;
 
 /**
  * 观察者接口
