@@ -5,7 +5,6 @@
  */
 package oliver.util.colloection;
 
-
 /**
  * 快速访问极值的栈
  * 
@@ -24,11 +23,11 @@ public class FastExtremeValueAccessStack<T extends Comparable<T>> {
 
 	private Object[] minData;
 
-	private int currentIndex = 0;
+	private int currentIndex = -1;
 
-	private int maxIndex = 0;
+	private int maxIndex = -1;
 
-	private int minIndex = 0;
+	private int minIndex = -1;
 
 	/**
 	 * 默认构造函数
@@ -81,8 +80,7 @@ public class FastExtremeValueAccessStack<T extends Comparable<T>> {
 			return null;
 		}
 		T e = (T) elementData[currentIndex];
-		elementData[currentIndex] = null;
-		currentIndex--;
+		elementData[currentIndex--] = null;
 		T max = max();
 		T min = min();
 		if (max != null && max.compareTo(e) == 0) {
@@ -104,15 +102,15 @@ public class FastExtremeValueAccessStack<T extends Comparable<T>> {
 	 */
 	public void push(T e) {
 		ensureCapacity();
-		elementData[++currentIndex] = e;
 		T max = max();
 		T min = min();
-		if (max == null || max.compareTo(e) < 0) {
+		if (max == null || e.compareTo(max) > 0) {
 			maxData[++maxIndex] = e;
 		}
-		if (min == null || min.compareTo(e) > 0) {
+		if (min == null || e.compareTo(min) < 0) {
 			minData[++minIndex] = e;
 		}
+		elementData[++currentIndex] = e;
 	}
 
 	/**
@@ -156,7 +154,7 @@ public class FastExtremeValueAccessStack<T extends Comparable<T>> {
 	 * @return
 	 */
 	public boolean empty() {
-		return elementData.length == 0;
+		return currentIndex < 0;
 	}
 
 	/**
@@ -165,32 +163,43 @@ public class FastExtremeValueAccessStack<T extends Comparable<T>> {
 	 * @author lichengwu
 	 * @created 2012-9-9
 	 * 
-	 * @param array
-	 * @return
 	 */
 	private void ensureCapacity() {
 		if (currentIndex == elementData.length - 1) {
-			Object[] newArray = new Object[elementData.length * 3 / 2];
-			System.arraycopy(elementData, 0, newArray, 0, elementData.length);
-			elementData = newArray;
+			Object[] newElementData = new Object[elementData.length * 3 / 2];
+			System.arraycopy(elementData, 0, newElementData, 0, elementData.length);
+			elementData = newElementData;
+
+			Object[] newMaxData = new Object[maxData.length * 3 / 2];
+			System.arraycopy(maxData, 0, newMaxData, 0, maxData.length);
+			maxData = newMaxData;
+
+			Object[] newMinData = new Object[minData.length * 3 / 2];
+			System.arraycopy(minData, 0, newMinData, 0, minData.length);
+			minData = newMinData;
 		}
 	}
 
 	public static void main(String[] args) {
 		FastExtremeValueAccessStack<Integer> stack = new FastExtremeValueAccessStack<Integer>();
+		for (int i = -10; i < 1000; i++) {
+			stack.push(i);
+		}
 		stack.push(3);
 		stack.push(8);
-		stack.push(1);
+		stack.push(-111);
 		stack.pop();
-		stack.pop();
-		System.out.println("max : "+stack.max());
-		System.out.println("min : "+stack.min());
-		
-//		Integer pop = stack.pop();
-//		while(pop!=null){
-//			System.out.println(pop);
-//			pop=stack.pop();
-//		}
-		
+		System.out.println("max : " + stack.max());
+		System.out.println("min : " + stack.min());
+
+		// Integer pop = stack.pop();
+		// while(pop!=null){
+		// System.out.println(pop);
+		// pop=stack.pop();
+		// }
+		Integer a = -1;
+		Integer b = 2;
+		System.out.println(a.compareTo(b));
+
 	}
 }
