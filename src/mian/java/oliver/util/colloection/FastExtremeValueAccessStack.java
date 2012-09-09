@@ -14,7 +14,7 @@ package oliver.util.colloection;
  * 
  * @version 1.0
  */
-public class FastExtremeValueStack<T extends Comparable<T>> {
+public class FastExtremeValueAccessStack<T extends Comparable<T>> {
 
 	private static final int INIT_CAPACITY = 8;
 
@@ -33,7 +33,7 @@ public class FastExtremeValueStack<T extends Comparable<T>> {
 	/**
 	 * 默认构造函数
 	 */
-	public FastExtremeValueStack() {
+	public FastExtremeValueAccessStack() {
 		elementData = new Object[INIT_CAPACITY];
 		maxData = new Object[INIT_CAPACITY];
 		minData = new Object[INIT_CAPACITY];
@@ -42,7 +42,7 @@ public class FastExtremeValueStack<T extends Comparable<T>> {
 	/**
 	 * @param initCapacity
 	 */
-	public FastExtremeValueStack(int initCapacity) {
+	public FastExtremeValueAccessStack(int initCapacity) {
 		if (initCapacity <= 0) {
 			throw new IllegalArgumentException("栈大小必须是个正数");
 		}
@@ -177,7 +177,7 @@ public class FastExtremeValueStack<T extends Comparable<T>> {
 	}
 
 	public static void main(String[] args) {
-		FastExtremeValueStack<Integer> stack = new FastExtremeValueStack<Integer>();
+		FastExtremeValueAccessStack<Integer> stack = new FastExtremeValueAccessStack<Integer>();
 		stack.push(3);
 		stack.push(8);
 		stack.push(1);
