@@ -19,7 +19,7 @@ import org.junit.Test;
  */
 public class TrieTest {
 
-    private static final int N = 10000;
+    private static final int N = 100000;
 
     private String[] array;
 
@@ -27,7 +27,7 @@ public class TrieTest {
     public void setUp() {
         array = new String[N];
         for (int i = 0; i < N; i++) {
-            array[i] = RandomString.get(Random.rangeRandom(2, 10));
+            array[i] = RandomString.get(Random.rangeRandom(2, 30));
         }
     }
 
@@ -41,6 +41,9 @@ public class TrieTest {
         Assert.assertFalse(trie.contains("oliver"));
     }
 
+    /**
+     * 10W 长度2-30字符穿 平均耗时
+     */
     @Test
     public void testTrie() {
         Trie trie = new Trie();
@@ -49,12 +52,16 @@ public class TrieTest {
         }
 
         for (String str : array) {
-            Assert.assertTrue(trie.remove(str));
+            Assert.assertTrue(trie.contains(str));
         }
-        Assert.assertTrue(trie.isEmpty());
-        Assert.assertEquals(0, trie.size());
+        // Assert.assertTrue(trie.isEmpty());
+        // Assert.assertEquals(0, trie.size());
     }
 
+    /**
+     * 10W 长度2-30字符穿 平均耗时90s
+     *
+     */
     @Test
     public void testArray() {
         ArrayList<String> arrayList = new ArrayList<String>(array.length);
