@@ -42,7 +42,7 @@ public class TrieTest {
     }
 
     /**
-     * 10W 长度2-30字符穿 平均耗时
+     * 10W 长度2-30字符穿 平均耗时3s
      */
     @Test
     public void testTrie() {
