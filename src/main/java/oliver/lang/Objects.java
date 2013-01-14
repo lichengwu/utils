@@ -73,26 +73,27 @@ final public class Objects {
     }
 
     /**
-     * 比较对象是否相等
+     * test whether two objects are equal
      * 
      * @param obj1
      * @param obj2
      * 
-     * @return 当obj1.equals(obj2)或obj1==obj2==null返回true，否则返回false
+     * @return whether two objects are equal
      */
     public static boolean equals(Object obj1, Object obj2) {
-        boolean returnValue = false;
-        if (obj1 == null && obj2 == null) {
-            returnValue = true;
-        } else if (obj1 == null && obj2 != null) {
-            returnValue = false;
-        } else if (obj1 != null && obj2 == null) {
-            returnValue = false;
-        } else {
-            returnValue = obj1.equals(obj2);
-        }
-
-        return returnValue;
+        return (obj1 == obj2) || (obj1 != null && obj1.equals(obj2));
+        // boolean returnValue = false;
+        // if (obj1 == null && obj2 == null) {
+        // returnValue = true;
+        // } else if (obj1 == null && obj2 != null) {
+        // returnValue = false;
+        // } else if (obj1 != null && obj2 == null) {
+        // returnValue = false;
+        // } else {
+        // returnValue = obj1.equals(obj2);
+        // }
+        //
+        // return returnValue;
     }
 
 }
