@@ -7,11 +7,10 @@ package oliver.lucene.util;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 
 import org.apache.lucene.index.IndexFileNames;
 import org.apache.lucene.util.Version;
-
-
 
 /**
  * lucene 工具类
@@ -22,9 +21,10 @@ import org.apache.lucene.util.Version;
  * @version 1.0
  */
 final public class LuceneUtil {
-	
-	private LuceneUtil(){}
-    
+
+    private LuceneUtil() {
+    }
+
     /**
      * lucene版本
      */
@@ -43,15 +43,16 @@ final public class LuceneUtil {
      * @param dir
      * @return
      */
-    public static File getFilePath(String root, String dir) {
+    public static File getFilePath(String root, String dir) throws IOException {
         File file = new File(root, dir);
         if (!file.exists()) {
-            file.mkdirs();
+            if (!file.mkdirs()) {
+                throw new IOException("can not create file : " + file.getCanonicalPath());
+            }
         }
         return file;
     }
-    
-  
+
     /**
      * <pre>
      * 保证文件路径存在
@@ -60,16 +61,15 @@ final public class LuceneUtil {
      * 
      * @author lichengwu
      * @created 2011-10-26
-     *
+     * 
      * @param path
      * @return
      */
-    public static boolean ensurePath(File path){
-        if(!path.exists()){
-            path.mkdirs();
-            return true;
+    public static boolean ensurePath(File path) {
+        if (!path.exists()) {
+            return path.mkdirs();
         }
-        if(path.isFile()){
+        if (path.isFile()) {
             return false;
         }
         return true;

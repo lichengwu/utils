@@ -78,7 +78,7 @@ public class Closer {
 					// 读取错误信息
 					HttpURLConnection httpConnection = (HttpURLConnection) conn;
 					BufferedReader reader = new BufferedReader(new InputStreamReader(
-					        httpConnection.getErrorStream()));
+					        httpConnection.getErrorStream(),"UTF-8"));
 					StringBuilder err = new StringBuilder();
 					while ((errMsg = reader.readLine()) != null) {
 						err.append(errMsg).append(System.getProperty("line.separator"));

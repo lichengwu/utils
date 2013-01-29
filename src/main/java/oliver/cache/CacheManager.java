@@ -24,12 +24,12 @@ import org.slf4j.LoggerFactory;
  */
 public final class CacheManager {
 
-    public static final long ONE_DAY_TIMEOUT=24*60*60*1000L;
-    
-    public static final long HALF_AN_HOUR_TIMEOUT=30*60*1000L;
-    
-    public static final long ONE_HOUR_TIMEOUT=60*60*1000L;
-    
+    public static final long ONE_DAY_TIMEOUT = 24 * 60 * 60 * 1000L;
+
+    public static final long HALF_AN_HOUR_TIMEOUT = 30 * 60 * 1000L;
+
+    public static final long ONE_HOUR_TIMEOUT = 60 * 60 * 1000L;
+
     private static final Logger logger = LoggerFactory.getLogger(CacheManager.class);
 
     private Map<String, Cache> cacheMap = new ConcurrentHashMap<String, Cache>();
@@ -83,13 +83,10 @@ public final class CacheManager {
         cache = cacheMap.get(key);
         if (cache == null) {
             logger.warn("failed to get cache[{}]", key);
-        } else if (cache != null) {
-            long current = System.currentTimeMillis();
-            if (cache.getTimeOut() < current) {
-                logger.warn("cache[{}] expired", key);
-                cacheMap.remove(key);
-                cache = null;
-            }
+        } else if (cache.getTimeOut() < System.currentTimeMillis()) {
+            logger.warn("cache[{}] expired", key);
+            cacheMap.remove(key);
+            cache = null;
         }
 
         return cache;

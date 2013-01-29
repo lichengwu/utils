@@ -117,9 +117,8 @@ public class SafeStack<T>
 		return top.get()==null;
 	}
 	
-	class Node implements Serializable
+	class Node
 	{
-        private static final long serialVersionUID = -1719229078370142006L;
         /**
 		 * 下一个节点。
 		 */

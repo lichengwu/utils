@@ -93,9 +93,7 @@ public class Trie {
             }
             if (lastNode4Delete.getChilden().isEmpty() && !lastNode4Delete.isEdge) {
                 lastNode4Delete.childenMap.clear();
-                if (lastNode4Delete.parent != null) {
-                    lastNode4Delete.parent.childenMap.remove(lastNode4Delete.value);
-                }
+                lastNode4Delete.parent.childenMap.remove(lastNode4Delete.value);
             }
             lastNode4Delete = lastNode4Delete.parent;
         }
@@ -134,7 +132,6 @@ public class Trie {
     public Iterator<String> iterator() {
         return new Iterator() {
 
-            int currentIndex = 0;
 
             @Override
             public boolean hasNext() {
@@ -174,7 +171,7 @@ public class Trie {
     /**
      * TrieNode for Trie
      */
-    class TrieNode {
+    static class TrieNode {
 
         TrieNode parent;
         char value;

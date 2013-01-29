@@ -73,18 +73,18 @@ public final class MD5 {
          */
         byte[] digest = new byte[16];
 
-        String digestHexStr = "";
+        StringBuilder digestHexStr = new StringBuilder();
         md5Init(count, state);
         try {
             md5Update(inbuf.getBytes("utf-8"), inbuf.length(), count, buffer, state);
-		} catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
         md5Final(count, digest, state, buffer);
         for (int i = 0; i < 16; i++) {
-            digestHexStr += byteHEX(digest[i]);
+            digestHexStr.append(byteHEX(digest[i]));
         }
-        return digestHexStr;
+        return digestHexStr.toString();
     }
 
     /* md5Init是一个初始化函数，初始化核心变量，装入标准的幻数 */
