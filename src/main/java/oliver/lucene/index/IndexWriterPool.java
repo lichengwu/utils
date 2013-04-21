@@ -5,18 +5,9 @@
  */
 package oliver.lucene.index;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.annotation.PostConstruct;
-
-import net.paoding.analysis.analyzer.PaodingAnalyzer;
 import oliver.lucene.util.LuceneUtil;
 import oliver.util.date.DateUtil;
-
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
@@ -24,6 +15,13 @@ import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.store.FSDirectory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * IndexWriter线程池
@@ -119,7 +117,7 @@ public class IndexWriterPool {
         try {
             File indexPath = LuceneUtil.getFilePath(indexRootDirectory, indexDirName);
             IndexWriterConfig conf = new IndexWriterConfig(LuceneUtil.CURRENT_VERSION,
-                    new PaodingAnalyzer());
+                    new StandardAnalyzer(LuceneUtil.CURRENT_VERSION));
             conf.setOpenMode(OpenMode.CREATE_OR_APPEND);
             return new IndexWriter(FSDirectory.open(indexPath), conf);
         } catch (Exception e) {
