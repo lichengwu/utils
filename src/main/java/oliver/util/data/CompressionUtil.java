@@ -1,16 +1,16 @@
 package oliver.util.data;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 import oliver.lang.Assert;
+import oliver.lang.Closer;
 
 /**
  * util for compress/decompress data
- * 
+ *
  * @author lichengwu
  * @version 1.0
  * @created 2013-02-07 10:14 AM
@@ -21,15 +21,13 @@ public final class CompressionUtil {
 
     /**
      * compress data by {@linkplain Level}
-     * 
-     * @author lichengwu
-     * @created 2013-02-07
-     * 
+     *
      * @param data
-     * @param level
-     *            see {@link Level}
+     * @param level see {@link Level}
      * @return
      * @throws IOException
+     * @author lichengwu
+     * @created 2013-02-07
      */
     public static byte[] compress(byte[] data, Level level) throws IOException {
 
@@ -47,29 +45,58 @@ public final class CompressionUtil {
         byte[] buffer = new byte[BUFFER_SIZE];
         while (!deflater.finished()) {
             int count = deflater.deflate(buffer); // returns the generated
-                                                  // code... index
+            // code... index
             outputStream.write(buffer, 0, count);
         }
         outputStream.close();
-        byte[] output = outputStream.toByteArray();
+        return outputStream.toByteArray();
+    }
 
-        return output;
+    /**
+     * compress {@linkplain Object}
+     *
+     * @param data
+     * @param level
+     * @return
+     * @throws IOException
+     */
+    public static byte[] compress(Object data, Level level) throws IOException {
+        byte[] result = new byte[0];
+        ByteArrayOutputStream bos = null;
+        ObjectOutputStream oos = null;
+        try {
+            bos = new ByteArrayOutputStream(BUFFER_SIZE);
+            oos = new ObjectOutputStream(bos);
+            oos.writeObject(data);
+            oos.flush();
+            result = bos.toByteArray();
+
+
+        } finally {
+            Closer.close(bos, oos);
+        }
+
+        return compress(result, level);
+
     }
 
     /**
      * decompress data
-     * 
-     * @author lichengwu
-     * @created 2013-02-07
-     * 
+     *
      * @param data
      * @return
      * @throws IOException
      * @throws DataFormatException
+     * @author lichengwu
+     * @created 2013-02-07
      */
     public static byte[] decompress(byte[] data) throws IOException, DataFormatException {
 
         Assert.notNull(data);
+
+        if (data.length == 0) {
+            return data;
+        }
 
         Inflater inflater = new Inflater();
         inflater.setInput(data);
@@ -84,6 +111,31 @@ public final class CompressionUtil {
         byte[] output = outputStream.toByteArray();
 
         return output;
+    }
+
+    /**
+     * decompress byte[] to Object
+     *
+     * @param data
+     * @return
+     * @throws IOException
+     * @throws DataFormatException
+     * @throws ClassNotFoundException
+     */
+    public static Object decompress2Object(byte[] data) throws IOException, DataFormatException, ClassNotFoundException {
+        Assert.notNull(data);
+        byte[] result = decompress(data);
+        Object object = null;
+        ByteArrayInputStream bis = null;
+        ObjectInputStream ois = null;
+        try {
+            bis = new ByteArrayInputStream(result);
+            ois = new ObjectInputStream(bis);
+            object = ois.readObject();
+        } finally {
+            Closer.close(bis, ois);
+        }
+        return object;
     }
 
     /**
@@ -115,7 +167,7 @@ public final class CompressionUtil {
 
         Level(
 
-        int level) {
+                int level) {
             this.level = level;
         }
 

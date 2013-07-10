@@ -1,29 +1,40 @@
 package oliver.util.data;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * CompressionUtilTest
- * 
+ *
  * @author lichengwu
  * @version 1.0
  * @created 2013-02-07 10:37 AM
  */
 public class CompressionUtilTest {
+
+    private static final int SIZE = 100000;
+
+    protected File origin;
+
+    private File cz;
+
+
+    @Before
+    public void setUp() throws IOException {
+        origin = File.createTempFile("compress", "origin");
+        cz = File.createTempFile("compress", "cz");
+    }
+
     @Test
     public void testCompress() throws Exception {
-
-        BufferedInputStream in = new BufferedInputStream(new FileInputStream(
-                "/Users/lichengwu/tmp/out_put.txt.bak"));
+        prepare(origin);
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(origin));
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
 
         byte[] temp = new byte[1024];
-        int size = 0;
+        int size;
         while ((size = in.read(temp)) != -1) {
             out.write(temp, 0, size);
         }
@@ -35,7 +46,7 @@ public class CompressionUtilTest {
         System.out.println("before : " + (data.length / 1024) + "k");
         System.out.println("after : " + (output.length / 1024) + "k");
 
-        FileOutputStream fos = new FileOutputStream("/Users/lichengwu/tmp/out_put.txt.bak.compress");
+        FileOutputStream fos = new FileOutputStream(cz);
         fos.write(output);
         out.close();
         fos.close();
@@ -45,12 +56,11 @@ public class CompressionUtilTest {
     @Test
     public void testDecompress() throws Exception {
 
-        BufferedInputStream in = new BufferedInputStream(new FileInputStream(
-                "/Users/lichengwu/tmp/out_put.txt.bak.compress"));
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(cz));
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
 
         byte[] temp = new byte[1024];
-        int size = 0;
+        int size;
         while ((size = in.read(temp)) != -1) {
             out.write(temp, 0, size);
         }
@@ -62,11 +72,17 @@ public class CompressionUtilTest {
         System.out.println("before : " + (data.length / 1024) + "k");
         System.out.println("after : " + (output.length / 1024) + "k");
 
-        FileOutputStream fos = new FileOutputStream("/Users/lichengwu/tmp/out_put.txt.bak.decompress");
+        FileOutputStream fos = new FileOutputStream(origin);
         fos.write(output);
         out.close();
         fos.close();
+    }
 
-
+    private void prepare(File file) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        for (int i = 0; i < SIZE; i++) {
+            writer.write("this is test text...." + i);
+        }
+        writer.close();
     }
 }
