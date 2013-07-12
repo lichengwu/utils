@@ -2,7 +2,7 @@ package cn.util.data;
 
 import java.io.*;
 
-import cn.lichengwu.util.data.CompressionUtil;
+import cn.lichengwu.utils.data.CompressionUtil;
 import org.junit.Before;
 import org.junit.Test;
 

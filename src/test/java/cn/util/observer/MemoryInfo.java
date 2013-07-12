@@ -5,7 +5,7 @@
  */
 package cn.util.observer;
 
-import cn.lichengwu.observer.DefaultObservable;
+import cn.lichengwu.utils.pattern.observer.DefaultObservable;
 
 /**
  * 内存信息

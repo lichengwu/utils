@@ -5,8 +5,8 @@
  */
 package cn.util.observer;
 
-import cn.lichengwu.observer.Observable;
-import cn.lichengwu.observer.Observer;
+import cn.lichengwu.utils.pattern.observer.Observable;
+import cn.lichengwu.utils.pattern.observer.Observer;
 
 /**
  *
@@ -18,7 +18,7 @@ import cn.lichengwu.observer.Observer;
 public class FreeMemoryDisplay implements Observer{
 
 	/**
-     * @see cn.lichengwu.observer.Observer#update(cn.lichengwu.observer.Observable, java.lang.Object)
+     * @see cn.lichengwu.utils.pattern.observer.Observer#update(cn.lichengwu.utils.pattern.observer.Observable, java.lang.Object)
      */
     @Override
     public void update(Observable observable, Object arg) {

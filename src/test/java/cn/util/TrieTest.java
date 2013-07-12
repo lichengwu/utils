@@ -2,9 +2,9 @@ package cn.util;
 
 import java.util.ArrayList;
 
-import cn.lichengwu.lang.Random;
-import cn.lichengwu.lang.RandomString;
-import cn.lichengwu.util.colloection.Trie;
+import cn.lichengwu.utils.lang.Random;
+import cn.lichengwu.utils.lang.RandomString;
+import cn.lichengwu.utils.colloection.Trie;
 
 import org.junit.Assert;
 import org.junit.Before;
