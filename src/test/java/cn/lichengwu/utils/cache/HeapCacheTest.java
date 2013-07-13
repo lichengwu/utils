@@ -1,5 +1,6 @@
 package cn.lichengwu.utils.cache;
 
+import cn.lichengwu.utils.common.bean.Person;
 import junit.framework.Assert;
 import org.junit.Test;
 
@@ -54,18 +55,5 @@ public class HeapCacheTest {
 
         Assert.assertEquals(0, cache.size());
 
-    }
-
-    private static class Person implements Serializable {
-
-        private static final long serialVersionUID = -5571900841584910502L;
-
-        private Person(int age, String name) {
-            this.age = age;
-            this.name = name;
-        }
-
-        int age;
-        String name;
     }
 }
