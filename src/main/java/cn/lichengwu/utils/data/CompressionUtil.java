@@ -61,7 +61,7 @@ public final class CompressionUtil {
      * @throws IOException
      */
     public static byte[] compress(Object data, Level level) throws IOException {
-        byte[] result = new byte[0];
+        byte[] result = null;
         ByteArrayOutputStream bos = null;
         ObjectOutputStream oos = null;
         try {

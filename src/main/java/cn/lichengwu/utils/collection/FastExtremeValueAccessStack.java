@@ -3,7 +3,7 @@
  * All rights reserved.
  * 
  */
-package cn.lichengwu.utils.colloection;
+package cn.lichengwu.utils.collection;
 
 /**
  * 快速访问极值的栈
@@ -178,28 +178,5 @@ public class FastExtremeValueAccessStack<T extends Comparable<T>> {
 			System.arraycopy(minData, 0, newMinData, 0, minData.length);
 			minData = newMinData;
 		}
-	}
-
-	public static void main(String[] args) {
-		FastExtremeValueAccessStack<Integer> stack = new FastExtremeValueAccessStack<Integer>();
-		for (int i = -10; i < 1000; i++) {
-			stack.push(i);
-		}
-		stack.push(3);
-		stack.push(8);
-		stack.push(-111);
-		stack.pop();
-		System.out.println("max : " + stack.max());
-		System.out.println("min : " + stack.min());
-
-		// Integer pop = stack.pop();
-		// while(pop!=null){
-		// System.out.println(pop);
-		// pop=stack.pop();
-		// }
-		Integer a = -1;
-		Integer b = 2;
-		System.out.println(a.compareTo(b));
-
 	}
 }

@@ -1,4 +1,4 @@
-package cn.lichengwu.utils.colloection;
+package cn.lichengwu.utils.collection;
 
 import cn.lichengwu.utils.common.bean.Person;
 import junit.framework.Assert;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * {@linkplain CollectionUtil} test
+ * {@linkplain cn.lichengwu.utils.collection.CollectionUtil} test
  *
  * @author lichengwu
  * @version 1.0

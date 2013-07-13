@@ -1,4 +1,4 @@
-package cn.lichengwu.utils.colloection;
+package cn.lichengwu.utils.collection;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import java.util.Map;
 import cn.lichengwu.utils.lang.Assert;
 
 /**
- * Trie Data Struct
+ * Trie Data structure
  * 
  * @author lichengwu
  * @version 1.0
@@ -32,7 +32,7 @@ public class Trie {
      * </p>
      * 
      * @param value
-     *            the value to be added into collction which must not be null
+     *            the value to be added into collection which must not be null
      * @return whether the value already exists
      */
     public boolean add(String value) {

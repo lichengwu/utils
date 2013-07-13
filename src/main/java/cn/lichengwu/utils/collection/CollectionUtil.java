@@ -3,7 +3,7 @@
  * All rights reserved.
  * 
  */
-package cn.lichengwu.utils.colloection;
+package cn.lichengwu.utils.collection;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

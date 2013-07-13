@@ -160,7 +160,7 @@ public class HttpUtil {
 	 * @throws URISyntaxException
 	 */
 	public void get(String url, Map<String, String> params)
-			throws ClientProtocolException, IOException, URISyntaxException {
+			throws IOException, URISyntaxException {
 		HttpClient httpClient = new DefaultHttpClient();
 		try {
 			HttpGet httpGet = null;

@@ -3,7 +3,7 @@
  * All rights reserved.
  * 
  */
-package cn.lichengwu.utils.observer;
+package cn.lichengwu.utils.pattern.observer;
 
 import cn.lichengwu.utils.pattern.observer.DefaultObservable;
 

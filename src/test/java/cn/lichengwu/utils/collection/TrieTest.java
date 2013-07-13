@@ -1,10 +1,10 @@
-package cn.lichengwu.utils;
+package cn.lichengwu.utils.collection;
 
 import java.util.ArrayList;
 
 import cn.lichengwu.utils.lang.Random;
 import cn.lichengwu.utils.lang.RandomString;
-import cn.lichengwu.utils.colloection.Trie;
+import cn.lichengwu.utils.collection.Trie;
 
 import org.junit.Assert;
 import org.junit.Before;
