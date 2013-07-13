@@ -25,13 +25,13 @@ public final class HeapCache {
 
     private static final Object NULL = new Object();
 
-    public static final long ONE_DAY_TIMEOUT = 24 * 60 * 60 * 1000L;
+    public static final long TIMEOUT_ONE_DAY = 24 * 60 * 60 * 1000L;
 
-    public static final long HALF_AN_HOUR_TIMEOUT = 30 * 60 * 1000L;
+    public static final long TIMEOUT_HALF_AN_HOUR = 30 * 60 * 1000L;
 
-    public static final long ONE_HOUR_TIMEOUT = 60 * 60 * 1000L;
+    public static final long TIMEOUT_ONE_HOUR = 60 * 60 * 1000L;
 
-    public static final long TIME_OUT_FOREVER = -1L;
+    public static final long TIMEOUT_FOREVER = -1L;
 
     private static final Logger log = LoggerFactory.getLogger(HeapCache.class);
 
@@ -57,10 +57,10 @@ public final class HeapCache {
      *
      * @param key     a string key
      * @param value   a {@linkplain Serializable} value
-     * @param timeOut cache time out, default {@link HeapCache#TIME_OUT_FOREVER}
+     * @param timeOut cache time out, default {@link HeapCache#TIMEOUT_FOREVER}
      */
     public void put(String key, Serializable value, long timeOut) {
-        final long _timeOut = timeOut <= 0 ? TIME_OUT_FOREVER : timeOut + System.currentTimeMillis();
+        final long _timeOut = timeOut <= 0 ? TIMEOUT_FOREVER : timeOut + System.currentTimeMillis();
 
         final int innerKey = getKey(key);
         cacheMap.put(innerKey, new Cache(value, _timeOut));
@@ -73,7 +73,7 @@ public final class HeapCache {
      * @param value a {@linkplain Serializable} value
      */
     public void put(String key, Serializable value) {
-        put(key, value, TIME_OUT_FOREVER);
+        put(key, value, TIMEOUT_FOREVER);
     }
 
     /**
@@ -92,7 +92,7 @@ public final class HeapCache {
                 log.debug("failed to get cache for key[{}]", key);
             }
             return null;
-        } else if (cache.timeOut != TIME_OUT_FOREVER && cache.timeOut < System.currentTimeMillis()) {
+        } else if (cache.timeOut != TIMEOUT_FOREVER && cache.timeOut < System.currentTimeMillis()) {
             if (log.isDebugEnabled()) {
                 log.debug("cache for key[{}] expired", key);
             }
