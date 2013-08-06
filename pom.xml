@@ -32,7 +32,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.7</version>
+            <version>4.10</version>
             <scope>test</scope>
         </dependency>
 
@@ -76,6 +76,14 @@
             <artifactId>jsoup</artifactId>
             <version>1.7.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.carrotsearch</groupId>
+            <artifactId>junit-benchmarks</artifactId>
+            <version>0.7.1</version>
+            <scope>test</scope>
+        </dependency>
+
 
 
     </dependencies>
