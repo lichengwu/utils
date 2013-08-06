@@ -6,8 +6,24 @@
     <version>1.3.0-SNAPSHOT</version>
     <name>utils</name>
     <description>java utils</description>
-    <dependencies>
+    <url>https://github.com/lichengwu/utils</url>
+    <inceptionYear>2013</inceptionYear>
+    <packaging>jar</packaging>
 
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:lichengwu/utils.git</connection>
+        <developerConnection>scm:git:git@github.com:lichengwu/utils.git</developerConnection>
+        <url>https://github.com/lichengwu/utils.git</url>
+    </scm>
+
+    <dependencies>
         <!-- Servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -90,6 +106,22 @@
 
     <build>
         <plugins>
+
+<plugin>  
+    <groupId>org.apache.maven.plugins</groupId>  
+    <artifactId>maven-gpg-plugin</artifactId>  
+    <version>1.4</version>  
+    <executions>  
+        <execution>  
+        <id>sign-artifacts</id>  
+        <phase>verify</phase>  
+        <goals>  
+            <goal>sign</goal>  
+        </goals>  
+    </execution>  
+    </executions>  
+</plugin>  
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
