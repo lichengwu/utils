@@ -1,5 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.lichengwu</groupId>
     <artifactId>utils</artifactId>
@@ -22,6 +29,16 @@
         <developerConnection>scm:git:git@github.com:lichengwu/utils.git</developerConnection>
         <url>https://github.com/lichengwu/utils.git</url>
     </scm>
+
+    <developers>
+        <developer>
+            <id>lichengwu</id>
+            <url>http://blog.lichengwu.cn</url>
+            <email>ol_l@msn.cn</email>
+            <name>Oliver Lee</name>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
 
     <dependencies>
         <!-- Servlet -->
