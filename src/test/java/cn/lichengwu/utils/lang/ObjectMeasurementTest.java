@@ -10,6 +10,13 @@ import java.util.Map;
  */
 public class ObjectMeasurementTest {
 
+    /**
+     * -javaagent:/home/zuojing/workspace/java/utils/target/utils-1.3.0-SNAPSHOT.jar
+     *
+     * @param args
+     *
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         Map<Integer, Object> object = new HashMap<Integer, Object>();
         Integer i = 0;
