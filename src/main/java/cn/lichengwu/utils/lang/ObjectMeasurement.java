@@ -44,7 +44,9 @@ public class ObjectMeasurement {
                     "Please check if jar file containing SizeOfAgent class is \n" +
                     "specified in the java's \"-javaagent\" command line argument.");
         }
-        return inst.getObjectSize(o);
+        long objectSize = inst.getObjectSize(o);
+//        System.out.println(o.getClass().getName() + "=" +objectSize);
+        return objectSize;
     }
 
     /**

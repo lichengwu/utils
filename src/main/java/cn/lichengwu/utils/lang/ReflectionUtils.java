@@ -57,4 +57,22 @@ final public class ReflectionUtils {
         }
     }
 
+    /**
+     * 设置静态成员变量
+     *
+     * @param staticField
+     * @param value
+     *
+     * @throws Exception
+     */
+    private static void setFinalStatic(Field staticField, Object value) throws Exception {
+        staticField.setAccessible(true);
+
+        Field modifiersField = Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(staticField, staticField.getModifiers() & ~Modifier.FINAL);
+
+        staticField.set(null, value);
+    }
+
 }
