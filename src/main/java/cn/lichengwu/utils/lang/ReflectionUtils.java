@@ -65,7 +65,7 @@ final public class ReflectionUtils {
      *
      * @throws Exception
      */
-    private static void setFinalStatic(Field staticField, Object value) throws Exception {
+    public static void setFinalStatic(Field staticField, Object value) throws Exception {
         staticField.setAccessible(true);
 
         Field modifiersField = Field.class.getDeclaredField("modifiers");
