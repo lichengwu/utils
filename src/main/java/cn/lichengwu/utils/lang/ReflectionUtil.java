@@ -13,7 +13,7 @@ import java.lang.reflect.Modifier;
  * @version 1.0
  * @created 2012-11-15 8:32 PM
  */
-final public class ReflectionUtils {
+final public class ReflectionUtil {
 
     /**
      * Make the given filed accessible.

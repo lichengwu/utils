@@ -12,7 +12,7 @@ package cn.lichengwu.utils.pattern.observer;
  *
  * @version 1.0
  */
-public class UserdMemoryDisplay implements Observer {
+public class UsedMemoryDisplay implements Observer {
 
 	/**
      * @see cn.lichengwu.utils.pattern.observer.Observer#update(cn.lichengwu.utils.pattern.observer.Observable, java.lang.Object)
