@@ -1,6 +1,6 @@
 package cn.lichengwu.utils.lang;
 
-import cn.lichengwu.utils.collection.LongReferenceConcurrentHashMap;
+import org.junit.Ignore;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 1.0
  * @created 2013-08-08 2:03 PM
  */
+@Ignore
 public class ObjectMeasurementTest {
 
     /**
@@ -34,15 +35,17 @@ public class ObjectMeasurementTest {
         }
 
         //        System.out.println("current size: " + ObjectMeasurement.sizeOf(map));
-                System.out.println("deep size: " + ObjectMeasurement.deepSizeOf(map));
-//        System.out.println(ObjectMeasurement.deepSizeOf(new HashEntry()));
+//                System.out.println("deep size: " + ObjectMeasurement.deepSizeOf(map));
+        System.out.println(ObjectMeasurement.deepSizeOf(new HashEntry()));
+
+
     }
 
     public static final class HashEntry<V> {
         long key;
         int hash;
-        volatile V value;
-        HashEntry<V> next;
+//        volatile V value;
+        V[] next;
 
     }
 }

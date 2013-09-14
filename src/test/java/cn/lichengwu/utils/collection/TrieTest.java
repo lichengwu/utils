@@ -19,7 +19,7 @@ import org.junit.Test;
  */
 public class TrieTest {
 
-    private static final int N = 100000;
+    private static final int N = 10000;
 
     private String[] array;
 

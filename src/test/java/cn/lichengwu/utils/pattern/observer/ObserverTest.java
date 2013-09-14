@@ -26,7 +26,7 @@ public class ObserverTest {
 	public void test() throws InterruptedException{
 		final MemoryInfo info = new MemoryInfo();
 		info.addObserver(new FreeMemoryDisplay());
-		info.addObserver(new UserdMemoryDisplay());
+		info.addObserver(new UsedMemoryDisplay());
 		Timer timer = new Timer(false);
 		timer.schedule(new TimerTask() {
 			int i=0;
@@ -40,6 +40,6 @@ public class ObserverTest {
 				}
 			}
 		}, 500, 1000);
-		TimeUnit.SECONDS.sleep(10000);
+		TimeUnit.SECONDS.sleep(2);
 	}
 }
