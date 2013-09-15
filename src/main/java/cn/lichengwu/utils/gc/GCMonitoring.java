@@ -31,7 +31,7 @@ public class GCMonitoring {
 
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
-    private static final long ONE_K = 1048576;
+    private static final long ONE_BYTE = 1024;
 
 
     public static void init() {
@@ -81,7 +81,7 @@ public class GCMonitoring {
 
                         StringBuilder usage = new StringBuilder();
                         usage.append("\t[").append(name).append("] ");
-                        usage.append("init:").append(afterUsage.getInit() / ONE_K).append(" MB; ");
+                        usage.append("init:").append(afterUsage.getInit() / ONE_BYTE).append("K; ");
                         usage.append("used:").append(handBack
                                 .handUsage(beforeUsage.getUsed(), afterUsage.getUsed(), beforeUsage.getMax()))
                                 .append("; ");
@@ -130,13 +130,19 @@ public class GCMonitoring {
         }
 
         public String handUsage(long before, long after, long max) {
-            long beforePercent = ((before * 1000L) / max);
-            long afterPercent = ((after * 1000L) / max);
             StringBuilder usage = new StringBuilder();
 
-            usage.append(beforePercent / 10).append('.').append(beforePercent % 10).append("%(").append(before / ONE_K)
-                    .append(" MB)->").append(afterPercent / 10).append('.').append(afterPercent % 10).append("%(")
-                    .append(after / ONE_K).append(" MB)");
+            if (max == -1) {
+                usage.append("").append(before / ONE_BYTE).append("K -> ").append(after / ONE_BYTE).append("K)");
+                return usage.toString();
+            }
+
+            long beforePercent = ((before * 1000L) / max);
+            long afterPercent = ((after * 1000L) / max);
+
+            usage.append(beforePercent / 10).append('.').append(beforePercent % 10).append("%(")
+                    .append(before / ONE_BYTE).append("K) -> ").append(afterPercent / 10).append('.')
+                    .append(afterPercent % 10).append("%(").append(after / ONE_BYTE).append("K)");
             return usage.toString();
 
         }
