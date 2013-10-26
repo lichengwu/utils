@@ -82,7 +82,7 @@ public class ObjectMeasurement {
     private static boolean needCalculate(Object obj, Map<Object, Object> visited) {
         if (obj instanceof String) {
             if (obj != ((String) obj).intern()) {
-                return false;
+                return true;
             }
         }
         return (obj != null) && !visited.containsKey(obj);

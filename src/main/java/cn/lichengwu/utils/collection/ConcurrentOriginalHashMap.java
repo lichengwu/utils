@@ -2,7 +2,6 @@ package cn.lichengwu.utils.collection;
 
 import java.io.Serializable;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 存储基本类型的hashMap，内存空间占用小

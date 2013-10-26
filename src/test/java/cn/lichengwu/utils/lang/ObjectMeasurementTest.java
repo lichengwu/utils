@@ -2,6 +2,9 @@ package cn.lichengwu.utils.lang;
 
 import org.junit.Ignore;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -42,10 +45,10 @@ public class ObjectMeasurementTest {
     }
 
     public static final class HashEntry<V> {
-        long key;
-        int hash;
-//        volatile V value;
-        V[] next;
+//        long key;
+//        int hash;
+        volatile V value;
+//        V[] next;
 
     }
 }
