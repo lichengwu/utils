@@ -36,7 +36,8 @@ public class ObjectMeasurementTest {
 
         //        System.out.println("current size: " + ObjectMeasurement.sizeOf(map));
 //                System.out.println("deep size: " + ObjectMeasurement.deepSizeOf(map));
-        System.out.println(ObjectMeasurement.deepSizeOf(new HashEntry()));
+        char [] c = new char[]{};
+        System.out.println(ObjectMeasurement.deepSizeOf(new Object()));
 
 
     }
