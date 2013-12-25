@@ -9,7 +9,7 @@ import java.util.Comparator;
  * <p/>
  * 下界:O(N)
  *
- * @author 佐井
+ * @author lichengwu
  * @version 1.0
  * @created 2013-12-23 11:55 PM
  */
@@ -29,10 +29,10 @@ public class InsertionSort<T> extends AbstractSort<T> {
             //i向前寻找位置
             for (slot = i; slot > 0 && compare(tmp, arr[slot - 1], comparator) < 0; slot--) {
                 //让出位置
-                arr[slot] = arr[slot - 1];
+                arr[slot] = assign(arr[slot - 1]);
             }
             //插入
-            arr[slot] = tmp;
+            arr[slot] = assign(tmp);
         }
     }
 }
