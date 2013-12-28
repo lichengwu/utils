@@ -17,7 +17,7 @@ public class SortTest {
 
     private Integer[] arr;
 
-    private int size = 1000;
+    private int size = 1000000;
 
     private static final Set<Sort> sortSet = new HashSet<Sort>();
 
@@ -36,9 +36,10 @@ public class SortTest {
             arr[x1] = arr[x2];
             arr[x2] = tmp;
         }
-        sortSet.add(new InsertionSort<Integer>());
+//        sortSet.add(new InsertionSort<Integer>());
         sortSet.add(new ShellSort<Integer>());
         sortSet.add(new HeapSort());
+        sortSet.add(new MergeSort());
     }
 
     @SuppressWarnings("unchecked")
