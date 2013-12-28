@@ -38,7 +38,7 @@ public abstract class AbstractSort<T> implements Sort<T> {
         innerSort(arr, comparator);
         System.out.println("\ttime used:\t\t" + (System.currentTimeMillis() - begin) + "ms");
         System.out.println("\tcompare times:\t" + compareCounter.get());
-        System.out.println("\tassign times:\t" + assignCounter.get());
+        System.out.println("\tmove times:\t\t" + assignCounter.get());
         compareCounter.set(0L);
         assignCounter.set(0L);
     }

@@ -26,8 +26,8 @@ public class HeapSort<T> extends AbstractSort<T> {
         for (int i = arr.length - 1; i > 0; i--) {
             //交换数据
             T tmp = arr[0];
-            arr[0] = arr[i];
-            arr[i] = tmp;
+            arr[0] = assign(arr[i]);
+            arr[i] = assign(tmp);
             //下率tmp
             precDown(arr, 0, i, comparator);
         }
