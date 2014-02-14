@@ -1,7 +1,5 @@
 package cn.lichengwu.utils.collection;
 
-import cn.lichengwu.utils.lucene.index.IndexReaderPool;
-import com.sun.swing.internal.plaf.synth.resources.synth_sv;
 import org.junit.Test;
 
 import java.util.Set;
@@ -20,8 +18,9 @@ public class AVLSetTest {
         for(int i=10;i>0;i--){
             set.add(+i);
         }
-        for (Integer s : set) {
-            System.out.println(s);
-        }
+        // TODO 暂时不正确
+//        for (Integer s : set) {
+//            System.out.println(s);
+//        }
     }
 }

@@ -86,8 +86,8 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
      */
     final Segment<V>[] segments;
 
-    transient Set<Long> keySet;
-    //    transient Set<Map.Entry<Long, V>> entrySet;
+    transient LongKeySet keySet;
+    transient Set<Map.Entry<Long, V>> entrySet;
     transient Collection<V> values;
 
     /* ---------------- Small Utilities -------------- */
@@ -135,13 +135,13 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
      * backup in case a null (pre-initialized) value is ever seen in
      * an unsynchronized access method.
      */
-     static final class HashEntry<V> {
+    static final class HashEntry<V> {
         final long key;
         final int hash;
         volatile V value;
         final HashEntry<V> next;
 
-         HashEntry(long key, int hash, HashEntry<V> next, V value) {
+        HashEntry(long key, int hash, HashEntry<V> next, V value) {
             this.key = key;
             this.hash = hash;
             this.next = next;
@@ -233,10 +233,9 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
          *
          * @serial
          */
-//        final float loadFactor;
-
+        //        final float loadFactor;
         public Segment(int initialCapacity) {
-//            loadFactor = lf;
+            //            loadFactor = lf;
             setTable(HashEntry.<V>newArray(initialCapacity));
         }
 
@@ -280,11 +279,11 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
 
         /* Specialized implementations of map methods */
 
-        V get(Object key, int hash) {
+        V get(long key, int hash) {
             if (count != 0) { // read-volatile
                 HashEntry<V> e = getFirst(hash);
                 while (e != null) {
-                    if (e.hash == hash && key.equals(e.key)) {
+                    if (e.hash == hash && key == e.key) {
                         V v = e.value;
                         if (v != null)
                             return v;
@@ -522,9 +521,6 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
      *
      * @param initialCapacity  the initial capacity. The implementation
      *                         performs internal sizing to accommodate this many elements.
-     * @param loadFactor       the load factor threshold, used to control resizing.
-     *                         Resizing may be performed when the average number of elements per
-     *                         bin exceeds this threshold.
      * @param concurrencyLevel the estimated number of concurrently
      *                         updating threads. The implementation performs internal sizing
      *                         to try to accommodate this many threads.
@@ -580,9 +576,6 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
      *
      * @param initialCapacity The implementation performs internal
      *                        sizing to accommodate this many elements.
-     * @param loadFactor      the load factor threshold, used to control resizing.
-     *                        Resizing may be performed when the average number of elements per
-     *                        bin exceeds this threshold.
      *
      * @throws IllegalArgumentException if the initial capacity of
      *                                  elements is negative or the load factor is nonpositive
@@ -714,8 +707,19 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
      */
     public V get(Object key) {
         int hash = hash(key.hashCode());
+        return segmentFor(hash).get((Long)key, hash);
+    }
+
+    public V get(Long key){
+        int hash = hash(key.hashCode());
         return segmentFor(hash).get(key, hash);
     }
+
+    public V get(long key){
+        int hash = hash(longHashCode(key));
+        return segmentFor(hash).get(key, hash);
+    }
+
 
     /**
      * Tests if the specified object is a key in this table.
@@ -838,6 +842,13 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
         return segmentFor(hash).put(key, hash, value, false);
     }
 
+    public V put(long key, V value) {
+        if (value == null)
+            throw new NullPointerException();
+        int hash = hash(longHashCode(key));
+        return segmentFor(hash).put(key, hash, value, false);
+    }
+
     /**
      * {@inheritDoc}
      *
@@ -866,7 +877,7 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
      * @param m mappings to be stored in this map
      */
     public void putAll(Map<? extends Long, ? extends V> m) {
-        for (Map.Entry<? extends Long, ? extends V> e : m.entrySet()) {
+        for (Entry<? extends Long, ? extends V> e : m.entrySet()) {
             put(e.getKey(), e.getValue());
         }
     }
@@ -936,7 +947,7 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
     }
 
     /**
-     * Returns a {@link Set} view of the keys contained in this map.
+     * Returns a {@link java.util.Set} view of the keys contained in this map.
      * The set is backed by the map, so changes to the map are
      * reflected in the set, and vice-versa.  The set supports element
      * removal, which removes the corresponding mapping from this map,
@@ -946,18 +957,18 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
      * <tt>addAll</tt> operations.
      * <p/>
      * <p>The view's <tt>iterator</tt> is a "weakly consistent" iterator
-     * that will never throw {@link ConcurrentModificationException},
+     * that will never throw {@link java.util.ConcurrentModificationException},
      * and guarantees to traverse elements as they existed upon
      * construction of the iterator, and may (but is not guaranteed to)
      * reflect any modifications subsequent to construction.
      */
-    public Set<Long> keySet() {
-        Set<Long> ks = keySet;
-        return (ks != null) ? ks : (keySet = new KeySet());
+    public LongKeySet keySet() {
+        LongKeySet ks = keySet;
+        return (ks != null) ? ks : (keySet = new LongKeySet());
     }
 
     /**
-     * Returns a {@link Collection} view of the values contained in this map.
+     * Returns a {@link java.util.Collection} view of the values contained in this map.
      * The collection is backed by the map, so changes to the map are
      * reflected in the collection, and vice-versa.  The collection
      * supports element removal, which removes the corresponding
@@ -967,7 +978,7 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
      * support the <tt>add</tt> or <tt>addAll</tt> operations.
      * <p/>
      * <p>The view's <tt>iterator</tt> is a "weakly consistent" iterator
-     * that will never throw {@link ConcurrentModificationException},
+     * that will never throw {@link java.util.ConcurrentModificationException},
      * and guarantees to traverse elements as they existed upon
      * construction of the iterator, and may (but is not guaranteed to)
      * reflect any modifications subsequent to construction.
@@ -978,7 +989,7 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
     }
 
     /**
-     * Returns a {@link Set} view of the mappings contained in this map.
+     * Returns a {@link java.util.Set} view of the mappings contained in this map.
      * The set is backed by the map, so changes to the map are
      * reflected in the set, and vice-versa.  The set supports element
      * removal, which removes the corresponding mapping from the map,
@@ -988,15 +999,15 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
      * <tt>addAll</tt> operations.
      * <p/>
      * <p>The view's <tt>iterator</tt> is a "weakly consistent" iterator
-     * that will never throw {@link ConcurrentModificationException},
+     * that will never throw {@link java.util.ConcurrentModificationException},
      * and guarantees to traverse elements as they existed upon
      * construction of the iterator, and may (but is not guaranteed to)
      * reflect any modifications subsequent to construction.
      */
-    public Set<Map.Entry<Long, V>> entrySet() {
-        throw new UnsupportedOperationException();
-        //        Set<Map.Entry<Long, V>> es = entrySet;
-        //        return (es != null) ? es : (entrySet = new EntrySet());
+    public Set<Entry<Long, V>> entrySet() {
+        //        throw new UnsupportedOperationException();
+        Set<Map.Entry<Long, V>> es = entrySet;
+        return (es != null) ? es : (entrySet = new EntrySet());
     }
 
     /**
@@ -1081,12 +1092,17 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
         }
     }
 
-    final class KeyIterator extends HashIterator implements Iterator<Long>, Enumeration<Long> {
+    final class KeyIterator extends HashIterator implements LongIterator, Enumeration<Long> {
         public Long next() {
             return super.nextEntry().key;
         }
 
         public Long nextElement() {
+            return super.nextEntry().key;
+        }
+
+        @Override
+        public long nextLong() {
             return super.nextEntry().key;
         }
     }
@@ -1105,7 +1121,7 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
      * Custom Entry class used by EntryIterator.next(), that relays
      * setValue changes to the underlying map.
      */
-    final class WriteThroughEntry extends AbstractMap.SimpleEntry<Long, V> {
+    final class WriteThroughEntry extends SimpleEntry<Long, V> {
         private static final long serialVersionUID = -2040147327226944428L;
 
         WriteThroughEntry(long k, V v) {
@@ -1131,14 +1147,14 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
     }
 
     final class EntryIterator extends HashIterator implements Iterator<Entry<Long, V>> {
-        public Map.Entry<Long, V> next() {
+        public Entry<Long, V> next() {
             HashEntry<V> e = super.nextEntry();
             return new WriteThroughEntry(e.key, e.value);
         }
     }
 
-    final class KeySet extends AbstractSet<Long> {
-        public Iterator<Long> iterator() {
+    public final class LongKeySet extends AbstractSet<Long> {
+        public LongIterator iterator() {
             return new KeyIterator();
         }
 
@@ -1177,23 +1193,23 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
         }
     }
 
-    final class EntrySet extends AbstractSet<Map.Entry<Long, V>> {
-        public Iterator<Map.Entry<Long, V>> iterator() {
+    final class EntrySet extends AbstractSet<Entry<Long, V>> {
+        public Iterator<Entry<Long, V>> iterator() {
             return new EntryIterator();
         }
 
         public boolean contains(Object o) {
-            if (!(o instanceof Map.Entry))
+            if (!(o instanceof Entry))
                 return false;
-            Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
+            Entry<?, ?> e = (Entry<?, ?>) o;
             V v = LongReferenceConcurrentHashMap.this.get(e.getKey());
             return v != null && v.equals(e.getValue());
         }
 
         public boolean remove(Object o) {
-            if (!(o instanceof Map.Entry))
+            if (!(o instanceof Entry))
                 return false;
-            Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
+            Entry<?, ?> e = (Entry<?, ?>) o;
             return LongReferenceConcurrentHashMap.this.remove(e.getKey(), e.getValue());
         }
 
@@ -1204,6 +1220,13 @@ public class LongReferenceConcurrentHashMap<V> extends AbstractMap<Long, V>
         public void clear() {
             LongReferenceConcurrentHashMap.this.clear();
         }
+    }
+
+
+    public interface LongIterator extends Iterator<Long> {
+
+        long nextLong();
+
     }
 
     /* ---------------- Serialization Support -------------- */
